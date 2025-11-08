@@ -99,10 +99,49 @@
     <main class="wrap">
         <!-- LEFT COLUMN -->
         <aside>
-            <div class="card profile">
-                <div class="avatar" aria-hidden="true">
-                    <img src="https://i.pinimg.com/originals/c1/97/e1/c197e1fc5e0178579c3ef6e98fb33ab1.gif" alt="Kibal avatar" style="width:100%;height:100%;border-radius:12px;object-fit:cover;display:block" />
+            <div class="card profile" id="profileCard">
+                <div class="avatar" aria-hidden="false" role="button" tabindex="0" style="cursor:pointer">
+                    <img id="avatarImage" src="https://i.redd.it/c5i6czypyir81.gif" alt="Kibal avatar" style="width:100%;height:100%;border-radius:12px;object-fit:cover;display:block" />
                 </div>
+                <script>
+                    const images = [
+                        "https://i.pinimg.com/originals/c1/97/e1/c197e1fc5e0178579c3ef6e98fb33ab1.gif",
+                        "https://i.redd.it/c5i6czypyir81.gif"
+                    ];
+                    let currentIndex = 1; // start matching the initial src
+
+                    const avatarImg = document.getElementById('avatarImage');
+                    const profileCard = document.getElementById('profileCard');
+                    const avatarDiv = profileCard.querySelector('.avatar');
+
+                    let pendingTimer = null;
+
+                    function nextImage() {
+                        currentIndex = (currentIndex + 1) % images.length;
+                        avatarImg.src = images[currentIndex];
+                    }
+
+                    function triggerChange() {
+                        // immediate change
+                        nextImage();
+                        // schedule a second change after 2 seconds, clearing any previous timer
+                        if (pendingTimer) clearTimeout(pendingTimer);
+                        pendingTimer = setTimeout(nextImage, 1700);
+                    }
+
+                    // click anywhere on the card (including the image) to switch and schedule another change
+                    profileCard.addEventListener('click', triggerChange);
+
+                    // keyboard accessibility: Enter or Space toggles the image (on the avatar div which is focusable)
+                    if (avatarDiv) {
+                        avatarDiv.addEventListener('keydown', function(e){
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                triggerChange();
+                            }
+                        });
+                    }
+                </script>
                 <div class="meta">
                     <h1>KIBAL</h1>
                     <p class="muted">Beginner Developer :)</p>
