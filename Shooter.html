@@ -116,7 +116,7 @@
     <!-- Main Menu -->
     <div id="menu" class="overlay">
         <h1>Neon Block Shooter</h1>
-        <p>Use <b>A</b> and <b>D</b> to move.<br>Press <b>Space</b> to shoot.<br>Destroy blocks before they hit you.</p>
+        <p>Use <b>A</b> and <b>D</b> to move.<br>Press <b>F</b> to shoot.<br>Destroy blocks before they hit you.</p>
         <div class="menu-buttons">
             <button id="play-btn">Start Game</button>
             <button id="exit-btn">Return to Index</button>
@@ -309,7 +309,7 @@ function returnToMenu() {
 document.addEventListener('keydown', e => {
     if (e.code === 'KeyA') leftPressed = true;
     if (e.code === 'KeyD') rightPressed = true;
-    if ((e.code === 'Space' || e.code === 'ArrowUp') && gameActive) shoot();
+    if ((e.code === 'KeyF' || e.code === 'ArrowUp') && gameActive) shoot();
 });
 document.addEventListener('keyup', e => {
     if (e.code === 'KeyA') leftPressed = false;
